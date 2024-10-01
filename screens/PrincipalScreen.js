@@ -1,53 +1,61 @@
-import React from "react";
-import { View, Text, Button } from "react-native";
-import styled from "styled-components/native";
-import { useNavigation } from "@react-navigation/native";
+import React, { useState, useEffect } from "react";
+import { ScrollView } from "react-native";
+import {
+    Container,
+    NavBar,
+    NavText,
+    ComplaintContainer,
+    ComplaintText,
+    Footer,
+    FooterText,
+} from "./styles";
 
-const Container = styled.View`
-    flex: 1;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-`;
+export default function MainScreen({ navigation }) {
+    const [complaints, setComplaints] = useState([]);
 
-const NavBar = styled.View`
-    flex-direction: row;
-    justify-content: space-around;
-    background-color: #ddd;
-    padding: 10px;
-    width: 100%;
-`;
-
-export default function PrincipalScreen() {
-    const navigation = useNavigation();
+    useEffect(() => {
+        // Lógica do banco de dados para utilizar as reclamações na tela de rolagem principal
+        const fetchedComplaints = [
+            { id: 1, text: "Buraco na rua principal." },
+            { id: 2, text: "Sem iluminação no bairro." },
+        ];
+        setComplaints(fetchedComplaints);
+    }, []);
 
     return (
         <Container>
-            <Text>Bem-vindo à tela principal do Comenta</Text>
-            <Button
-                title="Faça sua reclamação agora"
-                onPress={() => navigation.navigate("Reclamacao")}
-            />
-
-            {/* Barra de navegação */}
             <NavBar>
-                <Button
-                    title="Home"
-                    onPress={() => alert("Você já está na Home")}
-                />
-                <Button
-                    title="Sobre nós"
-                    onPress={() => alert("Página Sobre nós")}
-                />
-                <Button
-                    title="Contato"
-                    onPress={() => alert("Página Contato")}
-                />
-                <Button
-                    title="Faça sua reclamação"
-                    onPress={() => navigation.navigate("Reclamacao")}
-                />
+                <NavText onPress={() => alert("Página inicial")}>Home</NavText>
+                <NavText onPress={() => navigation.navigate("About")}>
+                    Sobre Nós
+                </NavText>
+                <NavText onPress={() => alert("Contato")}>Contato</NavText>
+                <NavText onPress={() => navigation.navigate("Complaint")}>
+                    Faça sua Reclamação
+                </NavText>
             </NavBar>
+            <ScrollView>
+                <ComplaintContainer>
+                    {complaints.map((complaint) => (
+                        <ComplaintText key={complaint.id}>
+                            {complaint.text}
+                        </ComplaintText>
+                    ))}
+                </ComplaintContainer>
+                <Footer>
+                    <FooterText>
+                        O aplicativo foi desenvolvido por alunos da Estácio
+                        Sergipe, com a finalidade de desenvolvê-lo para a
+                        comunidade da cidade. Denuncie problemas de
+                        infraestrutura, saneamento básico, estradas, e ajude a
+                        melhorar a cidade!
+                    </FooterText>
+                    <FooterText>
+                        Para relatar bugs, envie um email para
+                        suporte@comenta.app
+                    </FooterText>
+                </Footer>
+            </ScrollView>
         </Container>
     );
 }

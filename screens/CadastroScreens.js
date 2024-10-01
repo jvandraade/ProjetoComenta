@@ -1,68 +1,41 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, Button } from "react-native";
-import styled from "styled-components/native";
-
-const Container = styled.View`
-    flex: 1;
-    justify-content: center;
-    padding: 20px;
-`;
-
-const Input = styled.TextInput`
-    width: 100%;
-    height: 50px;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    border-width: 1px;
-    border-color: #ccc;
-`;
+import { CheckBox } from "react-native";
+import {
+    Container,
+    Input,
+    StyledButton,
+    ButtonText,
+    TermsContainer,
+} from "./styles";
 
 export default function CadastroScreen() {
-    const [formData, setFormData] = useState({
-        nome: "",
-        cpf: "",
-        email: "",
-        senha: "",
-    });
-
-    const handleChange = (field, value) => {
-        setFormData({ ...formData, [field]: value });
-    };
-
-    const handleRegister = () => {};
+    const [agreed, setAgreed] = useState(false);
 
     return (
         <Container>
-            <Text>Cadastre-se aqui</Text>
-            <Input
-                placeholder="Nome"
-                value={formData.nome}
-                onChangeText={(value) => handleChange("nome", value)}
-            />
-            <Input
-                placeholder="CPF"
-                keyboardType="numeric"
-                value={formData.cpf}
-                onChangeText={(value) => handleChange("cpf", value)}
-            />
-            <Input
-                placeholder="Email"
-                keyboardType="email-address"
-                value={formData.email}
-                onChangeText={(value) => handleChange("email", value)}
-            />
-            <Input
-                placeholder="Senha"
-                secureTextEntry={true}
-                value={formData.senha}
-                onChangeText={(value) => handleChange("senha", value)}
-            />
-            <Button
-                title="Cadastrar"
-                alert="O usuário foi cadastrado com sucesso, Faça seu login!"
-                onPress={handleRegister}
-            />
+            <Input placeholder="Nome" />
+            <Input placeholder="Email" />
+            <TermsContainer>
+                <Text>Termos e Condições:</Text>
+                <Text>
+                    Ao usar este aplicativo, você concorda em não compartilhar
+                    informações falsas, utilizar o aplicativo apenas para
+                    reportar problemas reais da comunidade e respeitar a
+                    privacidade das informações sigilosas. O uso indevido pode
+                    resultar em suspensão da conta.
+                </Text>
+                <CheckBox value={agreed} onValueChange={setAgreed} />
+                <Text>Eu concordo com os termos de uso</Text>
+            </TermsContainer>
+            <StyledButton
+                onPress={() =>
+                    agreed
+                        ? alert("Cadastro realizado")
+                        : alert("Você precisa concordar com os termos")
+                }
+            >
+                <ButtonText>Cadastrar</ButtonText>
+            </StyledButton>
         </Container>
     );
 }
