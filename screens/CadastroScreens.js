@@ -6,7 +6,7 @@ import {
     StyledButton,
     ButtonText,
     TermsContainer,
-} from "./styles";
+} from "../components/styles";
 
 export default function CadastroScreen() {
     const [agreed, setAgreed] = useState(false);

@@ -6,7 +6,7 @@ import {
     StyledButton,
     ButtonText,
     ImageUploadButton,
-} from "./styles";
+} from "../components/styles";
 import { ScrollView } from "react-native";
 
 export default function ReclamacaoScreen() {

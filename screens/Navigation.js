@@ -2,15 +2,13 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import LoginScreen from "./screens/LoginScreen";
-import CadastroScreen from "././screens/CadastroScreens";
+import CadastroScreen from "./screens/CadastroScreen";
 import EsqueciSenhaScreen from "./screens/EsqueciSenhaScreen";
 import PrincipalScreen from "./screens/PrincipalScreen";
-import ReclamacaoScreen from "./screens/ReclamacaoScreen";
-import "react-native-gesture-handler";
 
 const Stack = createStackNavigator();
 
-export default function App() {
+const Navigation = () => {
     return (
         <NavigationContainer>
             <Stack.Navigator initialRouteName="Login">
@@ -21,8 +19,9 @@ export default function App() {
                     component={EsqueciSenhaScreen}
                 />
                 <Stack.Screen name="Principal" component={PrincipalScreen} />
-                <Stack.Screen name="Reclamacao" component={ReclamacaoScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     );
-}
+};
+
+export default Navigation;

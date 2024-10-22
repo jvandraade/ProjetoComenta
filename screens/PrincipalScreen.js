@@ -8,7 +8,7 @@ import {
     ComplaintText,
     Footer,
     FooterText,
-} from "./styles";
+} from "../components/styles";
 
 export default function MainScreen({ navigation }) {
     const [complaints, setComplaints] = useState([]);

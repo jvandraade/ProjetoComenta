@@ -1,12 +1,19 @@
 import React, { useState } from "react";
-import { Container, Title, Input, StyledButton, ButtonText } from "./styles";
+import {
+    Container,
+    Title,
+    Input,
+    StyledButton,
+    ButtonText,
+} from "../components/styles";
 
 export default function EsqueciSenhaScreen() {
     const [email, setEmail] = useState("");
-
     return (
-        <Container>
-            <Title>Esqueci minha senha</Title>
+        <Container
+            style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+        >
+            <Title>Esqueci minha Senha</Title>
             <Input
                 placeholder="Digite seu email"
                 keyboardType="email-address"

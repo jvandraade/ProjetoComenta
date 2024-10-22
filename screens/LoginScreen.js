@@ -6,7 +6,7 @@ import {
     Input,
     StyledButton,
     ButtonText,
-} from "./styles";
+} from "../components/styles";
 
 export default function LoginScreen({ navigation }) {
     const [cpf, setCpf] = useState("");
@@ -32,16 +32,14 @@ export default function LoginScreen({ navigation }) {
                     value={password}
                     onChangeText={setPassword}
                 />
-                <StyledButton onPress={() => navigation.navigate("Main")}>
+                <StyledButton onPress={() => navigation.navigate("Login")}>
                     <ButtonText>Logar</ButtonText>
                 </StyledButton>
-                <StyledButton
-                    onPress={() => alert("Funcionalidade de Cadastro")}
-                >
+                <StyledButton onPress={() => navigation.navigate("Cadastro")}>
                     <ButtonText>Cadastrar</ButtonText>
                 </StyledButton>
                 <StyledButton
-                    onPress={() => alert("Funcionalidade de Redefinir Senha")}
+                    onPress={() => navigation.navigate("EsqueciSenha")}
                 >
                     <ButtonText>Esqueci a Senha</ButtonText>
                 </StyledButton>
