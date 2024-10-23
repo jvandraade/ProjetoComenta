@@ -1,40 +1,49 @@
-import React, { useState, useEffect } from "react";
-import { ScrollView } from "react-native";
+import React, { useState } from "react";
+import { ScrollView, StyleSheet } from "react-native";
 import {
     Container,
     NavBar,
     NavText,
     ComplaintContainer,
     ComplaintText,
-    Footer,
-    FooterText,
 } from "../components/styles";
 
 export default function MainScreen({ navigation }) {
     const [complaints, setComplaints] = useState([]);
 
-    useEffect(() => {
-        // Lógica do banco de dados para utilizar as reclamações na tela de rolagem principal
-        const fetchedComplaints = [
-            { id: 1, text: "Buraco na rua principal." },
-            { id: 2, text: "Sem iluminação no bairro." },
-        ];
-        setComplaints(fetchedComplaints);
-    }, []);
-
     return (
         <Container>
-            <NavBar>
-                <NavText onPress={() => alert("Página inicial")}>Home</NavText>
-                <NavText onPress={() => navigation.navigate("About")}>
+            <NavBar style={styles.navBar}>
+                <NavText
+                    style={styles.navText}
+                    onPress={() => alert("Página inicial")}
+                >
+                    Home
+                </NavText>
+                <NavText
+                    style={styles.navText}
+                    onPress={() => navigation.navigate("About")}
+                >
                     Sobre Nós
                 </NavText>
-                <NavText onPress={() => alert("Contato")}>Contato</NavText>
-                <NavText onPress={() => navigation.navigate("Complaint")}>
+                <NavText
+                    style={styles.navText}
+                    onPress={() =>
+                        alert(
+                            "Para relatar bugs, envie um email para suporte@comenta.app"
+                        )
+                    }
+                >
+                    Contato
+                </NavText>
+                <NavText
+                    style={styles.navText}
+                    onPress={() => navigation.navigate("Reclamacao")}
+                >
                     Faça sua Reclamação
                 </NavText>
             </NavBar>
-            <ScrollView>
+            <ScrollView style={styles.scrollView}>
                 <ComplaintContainer>
                     {complaints.map((complaint) => (
                         <ComplaintText key={complaint.id}>
@@ -42,20 +51,25 @@ export default function MainScreen({ navigation }) {
                         </ComplaintText>
                     ))}
                 </ComplaintContainer>
-                <Footer>
-                    <FooterText>
-                        O aplicativo foi desenvolvido por alunos da Estácio
-                        Sergipe, com a finalidade de desenvolvê-lo para a
-                        comunidade da cidade. Denuncie problemas de
-                        infraestrutura, saneamento básico, estradas, e ajude a
-                        melhorar a cidade!
-                    </FooterText>
-                    <FooterText>
-                        Para relatar bugs, envie um email para
-                        suporte@comenta.app
-                    </FooterText>
-                </Footer>
             </ScrollView>
         </Container>
     );
 }
+
+const styles = StyleSheet.create({
+    navBar: {
+        backgroundColor: "#00BFFF", // Azul ciano
+        paddingVertical: 10,
+        flexDirection: "row",
+        justifyContent: "space-around",
+        elevation: 5, // Sombra para dar destaque no Android
+    },
+    navText: {
+        color: "#FFFFFF", // Texto branco
+        fontSize: 16,
+        textAlign: "center",
+    },
+    scrollView: {
+        marginTop: 10, // Espaço entre a NavBar e o conteúdo
+    },
+});

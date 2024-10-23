@@ -7,10 +7,28 @@ import {
     StyledButton,
     ButtonText,
 } from "../components/styles";
+import { Alert } from "react-native";
+
+const usuariosFicticios = [
+    { cpf: "12345678900", senha: "senha123" },
+    { cpf: "98765432100", senha: "senha456" },
+];
 
 export default function LoginScreen({ navigation }) {
     const [cpf, setCpf] = useState("");
     const [password, setPassword] = useState("");
+
+    const handleLogin = () => {
+        const usuario = usuariosFicticios.find(
+            (user) => user.cpf === cpf && user.senha === password
+        );
+
+        if (usuario) {
+            navigation.navigate("PrincipalScreen");
+        } else {
+            Alert.alert("Erro", "CPF ou senha incorretos!");
+        }
+    };
 
     return (
         <Background
@@ -32,16 +50,26 @@ export default function LoginScreen({ navigation }) {
                     value={password}
                     onChangeText={setPassword}
                 />
-                <StyledButton onPress={() => navigation.navigate("Login")}>
+
+                <StyledButton onPress={handleLogin}>
                     <ButtonText>Logar</ButtonText>
                 </StyledButton>
+
                 <StyledButton onPress={() => navigation.navigate("Cadastro")}>
                     <ButtonText>Cadastrar</ButtonText>
                 </StyledButton>
+
                 <StyledButton
                     onPress={() => navigation.navigate("EsqueciSenha")}
                 >
                     <ButtonText>Esqueci a Senha</ButtonText>
+
+                    <StyledButton
+                        style={{ marginTop: 20, backgroundColor: "#4CAF50" }}
+                        onPress={() => navigation.navigate("Principal")}
+                    >
+                        <ButtonText>Ir para Principal</ButtonText>
+                    </StyledButton>
                 </StyledButton>
             </Container>
         </Background>

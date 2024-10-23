@@ -19,6 +19,7 @@ const Navigation = () => {
                     component={EsqueciSenhaScreen}
                 />
                 <Stack.Screen name="Principal" component={PrincipalScreen} />
+                <Stack.Screen name="Reclamacao" component={ReclamacaoScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     );
