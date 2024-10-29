@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { View, Text, Alert, ScrollView, StyleSheet } from "react-native"; // Adicionando ScrollView e StyleSheet para melhorar a renderização
-import { CheckBox } from "react-native";
-import { TextInputMask } from "react-native-masked-text"; // Para formatar CPF e Data de Nascimento
+import { View, Text, Alert, ScrollView, StyleSheet } from "react-native";
+
+import { TextInputMask } from "react-native-masked-text";
 import {
     Container,
     Input,
@@ -18,9 +18,8 @@ export default function CadastroScreen() {
     const [senha, setSenha] = useState("");
     const [agreed, setAgreed] = useState(false);
 
-    // Função para validar o CPF
     const validarCPF = (cpf) => {
-        const cpfLimpo = cpf.replace(/\D/g, ""); // Remove caracteres não numéricos
+        const cpfLimpo = cpf.replace(/\D/g, "");
         if (cpfLimpo.length !== 11) {
             return false;
         }
@@ -46,7 +45,6 @@ export default function CadastroScreen() {
         return true;
     };
 
-    // Função para validar email
     const validarEmail = (email) => {
         const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return regex.test(email);
@@ -73,14 +71,11 @@ export default function CadastroScreen() {
             return;
         }
 
-        // Lógica para salvar o cadastro (simulada aqui com um alerta)
         Alert.alert("Sucesso", "Cadastro realizado com sucesso!");
     };
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
-            {" "}
-            {/* Usando ScrollView para garantir rolagem em telas menores */}
             <View style={styles.formGroup}>
                 <Text style={styles.label}>Nome</Text>
                 <Input
@@ -139,10 +134,6 @@ export default function CadastroScreen() {
                     privacidade das informações sigilosas. O uso indevido pode
                     resultar em suspensão da conta.
                 </Text>
-                <CheckBox value={agreed} onValueChange={setAgreed} />
-                <Text style={styles.checkboxText}>
-                    Eu concordo com os termos de uso
-                </Text>
             </TermsContainer>
             <StyledButton onPress={handleSubmit}>
                 <ButtonText>Cadastrar</ButtonText>
@@ -151,7 +142,6 @@ export default function CadastroScreen() {
     );
 }
 
-// Estilos básicos para a tela
 const styles = StyleSheet.create({
     container: {
         flexGrow: 1,

@@ -65,7 +65,10 @@ export default function LoginScreen({ navigation }) {
                     <ButtonText>Esqueci a Senha</ButtonText>
 
                     <StyledButton
-                        style={{ marginTop: 20, backgroundColor: "#4CAF50" }}
+                        style={{
+                            marginTop: 20,
+                            backgroundColor: "#00BFFF",
+                        }}
                         onPress={() => navigation.navigate("Principal")}
                     >
                         <ButtonText>Ir para Principal</ButtonText>
