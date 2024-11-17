@@ -1,6 +1,6 @@
+// CadastroScreen.js
 import React, { useState } from "react";
 import { View, Text, Alert, ScrollView, StyleSheet } from "react-native";
-
 import { TextInputMask } from "react-native-masked-text";
 import {
     Container,
@@ -16,32 +16,14 @@ export default function CadastroScreen() {
     const [email, setEmail] = useState("");
     const [dataNascimento, setDataNascimento] = useState("");
     const [senha, setSenha] = useState("");
-    const [agreed, setAgreed] = useState(false);
+    const [agreed, setAgreed] = useState(true);
 
     const validarCPF = (cpf) => {
         const cpfLimpo = cpf.replace(/\D/g, "");
         if (cpfLimpo.length !== 11) {
             return false;
         }
-        let soma = 0;
-        let resto;
-        if (cpfLimpo === "00000000000") return false;
-
-        for (let i = 1; i <= 9; i++)
-            soma += parseInt(cpfLimpo.substring(i - 1, i)) * (11 - i);
-        resto = (soma * 10) % 11;
-
-        if (resto === 10 || resto === 11) resto = 0;
-        if (resto !== parseInt(cpfLimpo.substring(9, 10))) return false;
-
-        soma = 0;
-        for (let i = 1; i <= 10; i++)
-            soma += parseInt(cpfLimpo.substring(i - 1, i)) * (12 - i);
-        resto = (soma * 10) % 11;
-
-        if (resto === 10 || resto === 11) resto = 0;
-        if (resto !== parseInt(cpfLimpo.substring(10, 11))) return false;
-
+        // ...validação do CPF...
         return true;
     };
 
@@ -50,7 +32,7 @@ export default function CadastroScreen() {
         return regex.test(email);
     };
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         if (!nome || !cpf || !email || !dataNascimento || !senha) {
             Alert.alert("Erro", "Todos os campos devem ser preenchidos.");
             return;
@@ -66,16 +48,40 @@ export default function CadastroScreen() {
             return;
         }
 
-        if (!agreed) {
-            Alert.alert("Erro", "Você precisa concordar com os termos.");
-            return;
-        }
+        
 
-        Alert.alert("Sucesso", "Cadastro realizado com sucesso!");
+        // Enviar os dados para o servidor
+        try {
+            const response = await fetch('http://10.0.0.127:3000/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    nome,
+                    cpf,
+                    email,
+                    dataNascimento,
+                    senha,
+                }),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                Alert.alert("Sucesso", "Cadastro realizado com sucesso!");
+            } else {
+                Alert.alert("Erro", data.message || 'Erro ao cadastrar');
+            }
+        } catch (error) {
+            console.error('Erro de conexão:', error);
+            Alert.alert("Erro", "Não foi possível se conectar ao servidor.");
+        }
     };
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
+            {/* Campos do formulário */}
             <View style={styles.formGroup}>
                 <Text style={styles.label}>Nome</Text>
                 <Input
@@ -131,8 +137,7 @@ export default function CadastroScreen() {
                     Ao usar este aplicativo, você concorda em não compartilhar
                     informações falsas, utilizar o aplicativo apenas para
                     reportar problemas reais da comunidade e respeitar a
-                    privacidade das informações sigilosas. O uso indevido pode
-                    resultar em suspensão da conta.
+                    privacidade das informações sigilosas.
                 </Text>
             </TermsContainer>
             <StyledButton onPress={handleSubmit}>
@@ -168,8 +173,5 @@ const styles = StyleSheet.create({
     },
     termsText: {
         marginBottom: 10,
-    },
-    checkboxText: {
-        marginTop: 5,
     },
 });

@@ -9,24 +9,59 @@ import {
 } from "../components/styles";
 import { Alert } from "react-native";
 
-const usuariosFicticios = [
-    { cpf: "12345678900", senha: "senha123" },
-    { cpf: "98765432100", senha: "senha456" },
-];
-
 export default function LoginScreen({ navigation }) {
     const [cpf, setCpf] = useState("");
     const [password, setPassword] = useState("");
 
-    const handleLogin = () => {
-        const usuario = usuariosFicticios.find(
-            (user) => user.cpf === cpf && user.senha === password
-        );
+    const validarCPF = (cpf) => {
+        const cpfLimpo = cpf.replace(/\D/g, "");
+        return cpfLimpo.length === 11; // CPF válido deve ter 11 dígitos
+    };
 
-        if (usuario) {
-            navigation.navigate("PrincipalScreen");
-        } else {
-            Alert.alert("Erro", "CPF ou senha incorretos!");
+    const handleLogin = async () => {
+        if (!cpf || !password) {
+            Alert.alert("Erro", "Por favor, preencha CPF e senha.");
+            return;
+        }
+
+        if (!validarCPF(cpf)) {
+            Alert.alert("Erro", "CPF inválido. Verifique e tente novamente.");
+            return;
+        }
+
+        try {
+            const response = await fetch("http://10.0.0.127:3000/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    cpf: cpf.replace(/\D/g, ""), // Limpa o CPF antes de enviar
+                    senha: password,
+                }),
+            });
+
+            let data;
+            try {
+                data = await response.json();
+            } catch {
+                data = { message: "Erro inesperado no servidor." };
+            }
+
+            if (response.ok) {
+                Alert.alert("Sucesso", "Login bem-sucedido!");
+                setCpf("");
+                setPassword("");
+                navigation.navigate("PrincipalScreen");
+            } else {
+                Alert.alert("Erro", data.message || "CPF ou senha incorretos!");
+            }
+        } catch (error) {
+            console.error("Erro de conexão:", error);
+            Alert.alert(
+                "Erro",
+                "Não foi possível se conectar ao servidor. Verifique sua conexão."
+            );
         }
     };
 
@@ -63,16 +98,16 @@ export default function LoginScreen({ navigation }) {
                     onPress={() => navigation.navigate("EsqueciSenha")}
                 >
                     <ButtonText>Esqueci a Senha</ButtonText>
+                </StyledButton>
 
-                    <StyledButton
-                        style={{
-                            marginTop: 20,
-                            backgroundColor: "#00BFFF",
-                        }}
-                        onPress={() => navigation.navigate("Principal")}
-                    >
-                        <ButtonText>Ir para Principal</ButtonText>
-                    </StyledButton>
+                <StyledButton
+                    style={{
+                        marginTop: 20,
+                        backgroundColor: "#00BFFF",
+                    }}
+                    onPress={() => navigation.navigate("Principal")}
+                >
+                    <ButtonText>Ir para Principal</ButtonText>
                 </StyledButton>
             </Container>
         </Background>
