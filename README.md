@@ -3,10 +3,6 @@
 </h1>
 
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/0000000/000000000-00000000-0000-0000-0000.png" alt="Comenta Logo" width="200" />
-</p>
-
-<p align="center">
   🌱 Aplicativo mobile e web desenvolvido em React Native + Expo para facilitar o envio de reclamações urbanas.
 </p>
 
