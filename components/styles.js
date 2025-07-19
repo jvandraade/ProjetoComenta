@@ -2,8 +2,11 @@ import styled from "styled-components/native";
 
 export const Container = styled.View`
     flex: 1;
-    padding: 20px;
+    width: 100%;
+    max-width: 500px;
+    padding: 16px;
     justify-content: center;
+    margin: 0 auto;
 `;
 
 export const NavBar = styled.View`
@@ -61,20 +64,25 @@ export const Title = styled.Text`
 
 export const Input = styled.TextInput`
     width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
+    max-width: 500px;
+    padding: 12px;
+    margin-bottom: 12px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 8px;
+    border-width: 1px;
+    border-color: #007bff;
     background-color: white;
 `;
 
 export const StyledButton = styled.TouchableOpacity`
+    width: 100%;
+    max-width: 500px;
     background-color: #007bff;
-    padding: 10px;
+    padding: 12px;
     margin-bottom: 10px;
     width: 100%;
     align-items: center;
-    border-radius: 5px;
+    border-radius: 8px;
 `;
 
 export const ButtonText = styled.Text`
@@ -87,20 +95,25 @@ export const TermsContainer = styled.View`
 `;
 
 export const TextArea = styled.TextInput`
-    height: 100px;
     width: 100%;
-    padding: 10px;
+    max-width: 500px;
+    height: 120px;
+    width: 100%;
+    padding: 12px;
     margin-bottom: 15px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 8px;
+    border-color: #007bff;
     background-color: white;
 `;
 
 export const ImageUploadButton = styled.TouchableOpacity`
+    width: 100%;
+    max-width: 500px;
     background-color: #28a745;
-    padding: 10px;
-    margin-bottom: 10px;
+    padding: 12px;
+    margin-bottom: 12px;
     width: 100%;
     align-items: center;
-    border-radius: 5px;
+    border-radius: 8px;
 `;

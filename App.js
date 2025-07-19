@@ -11,18 +11,18 @@ import "react-native-gesture-handler";
 const Stack = createStackNavigator();
 
 export default function App() {
-    return (
-        <NavigationContainer>
-            <Stack.Navigator initialRouteName="Login">
-                <Stack.Screen name="Login" component={LoginScreen} />
-                <Stack.Screen name="Cadastro" component={CadastroScreen} />
-                <Stack.Screen
-                    name="EsqueciSenha"
-                    component={EsqueciSenhaScreen}
-                />
-                <Stack.Screen name="Principal" component={PrincipalScreen} />
-                <Stack.Screen name="Reclamacao" component={ReclamacaoScreen} />
-            </Stack.Navigator>
-        </NavigationContainer>
-    );
+  return (
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Login">
+        <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="Cadastro" component={CadastroScreen} />
+        <Stack.Screen
+          name="EsqueciSenha"
+          component={EsqueciSenhaScreen}
+        />
+        <Stack.Screen name="Principal" component={PrincipalScreen} />
+        <Stack.Screen name="Reclamacao" component={ReclamacaoScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
 }
